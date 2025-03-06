@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Board Home</title>
+    </head>
+    <body>
+        <p>Hello {{ID}}! <a href="/logout">logout</a></p>
+        <h1>Board Home</h1>
+        {% include "boardList.njk"%}
+        <p><a href="/board/create">Create</a></p>
+    </body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CREATE BOARD</title>
+    </head>
+    <body>
+        <p>Hello {{ID}}! <a href="/logout">logout</a></p>
+        <p><a href="/">Go Home</a></p>
+        <h1>CREATE BOARD</h1>
+        <form action="/board/create" method="post">
+            <input type="text" name="title" placeholder="title" required><br>
+            <textarea name="content" placeholder="content" required></textarea><br>
+            <label><input type="checkbox" name="is_private" value="true">private post</label><br>
+            <button type="submit">submit</button>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  app:
+    build: ./app # Node.js 애플리케이션을 빌드할 경로
+    container_name: forum_node
+    ports:
+      - "3000:3000"  # 외부에서 접근할 포트
+    volumes:
+      - ./app:/app  # 로컬 파일을 컨테이너와 동기화
+      - /app/node_modules  # node_modules는 컨테이너 안에 저장
+    environment:
+      - DATABASE_HOST=db  # db 컨테이너의 이름을 환경변수로 설정
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=1234
+      - DATABASE_NAME=forum_db
+    depends_on:
+      - db
+    command: ["npx", "nodemon", "-L", "--verbose", "./src/app.js"]  # 개발 시 자동 재시작
+
+  # MySQL 컨테이너
+  db:
+    image: mysql:5.7
+    container_name: forum_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234  # MySQL 루트 비밀번호
+      MYSQL_DATABASE: forum_db  # 기본 데이터베이스 이름
+    ports:
+      - "3306:3306"  # 외부 포트 노출
+    volumes:
+      - forum_data:/var/lib/mysql  # MySQL 데이터 영속성 보장
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql # 초기화 스크립트 추가
+
+# 데이터 영속성을 위한 볼륨
+volumes:
+ forum_data:

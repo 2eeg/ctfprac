@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>BOARD - Registration</title>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
+    <body>
+        <h1>Registration</h1>
+        <p>
+            <form onsubmit="return validateForm()" action="/register" method="post">
+                <label for="ID">ID:</label>
+                <input type="text" id="ID" name="ID" required autofocus placeholder="Enter ID">
+                <input type="button" value="Check availability" onclick="checkID()">
+                <br>
+                <label for="PW">Password:</label>
+                <input type="password" id="PW" name="PW" required placeholder="Enter password">
+                <br>
+                <label for="PW2">Password:</label>
+                <input type="password" id="PW2" required placeholder="Confirm password">
+                <br>
+                <input type="submit" value="Register">
+            </form>
+        </p>
+        <p> <a href="/">go home</a> </p>
+    </body>
+
+    <script>
+        function validateForm() {
+            var pw = document.getElementById("PW").value;
+            var pw2 = document.getElementById("PW2").value;
+            if (pw != pw2) {
+                alert("Passwords do not match.");
+                document.getElementById("PW").focus();
+                return false;
+            }
+            return true;
+        }
+        function checkID() {
+            var id = document.getElementById("ID").value;
+            if (id == "") {
+                alert("Please enter ID.");
+                return;
+            }
+            $.ajax({
+                url: "register/checkID",
+                type: "post",
+                data: {
+                    ID: id
+                },
+                success: function(data) {
+                    console.log(data);
+                    if (data.result == true) {
+                        alert("Unable ID");
+                    } else {
+                        alert("Available ID");
+                    }
+                },
+                error: function(error){
+                    console.log(error);
+                }
+            });
+        }
+    </script>
+
+</html>

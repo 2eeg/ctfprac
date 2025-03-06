@@ -1,0 +1,8 @@
+node_modules
+data/boards.json
+data/users.json
+npm-debug.log
+init.sql
+Dockerfile
+docker-compose.yml
+.env
